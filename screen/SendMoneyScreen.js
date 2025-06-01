@@ -1,12 +1,4 @@
 
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 import * as Contacts from 'expo-contacts';
@@ -14,13 +6,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-
-
-
-
-
-
 
 function SendMoneyScreen ({ navigation }) {
   const [inputValue, setInputValue] = useState('');

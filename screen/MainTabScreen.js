@@ -1,20 +1,3 @@
-// import { StyleSheet, Text, View } from 'react-native'
-// import React from 'react'
-
-// const MainTabScreen = () => {
-//   return (
-//     <View>
-//       <Text>MainTabScreen</Text>
-//     </View>
-//   )
-// }
-
-// export default MainTabScreen
-
-// const styles = StyleSheet.create({})
-
-
-
 
 import React from 'react';
 import { StyleSheet, Text, View,StatusBar  } from 'react-native';
@@ -28,7 +11,6 @@ import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 
-//
 import SendMoneyScreen from './SendMoneyScreen';
 import PaymentScreen from './PaymentScreen';
 import BillPaymentScreen from './BillPaymentScreen';
@@ -59,13 +41,6 @@ const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => (
     <Tab.Navigator
-      // initialRouteName="Home"
-      // activeColor="black"
-      // barStyle={{ backgroundColor: '#009387' }}
-      // screenOptions={{
-      //   activeTintColor: '#009387', // Set your desired active text color code
-      // }}
-
       
       initialRouteName="Home"
       activeColor="black" // Text color when tab is active

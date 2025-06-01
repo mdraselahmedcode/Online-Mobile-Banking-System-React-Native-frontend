@@ -10,8 +10,6 @@ const LoanScreen = () => {
     if (loanAmount.trim() === '' || loanDuration.trim() === '') {
       Alert.alert('Error', 'Please enter both loan amount and duration.');
     } else {
-      // Perform the loan request action or API call
-      // You can customize this logic based on your requirements
       Alert.alert('Loan Requested', `Loan request for ${loanAmount} BDT for ${loanDuration} months submitted successfully!`);
       // Reset the fields after successful loan request
       setLoanAmount('');

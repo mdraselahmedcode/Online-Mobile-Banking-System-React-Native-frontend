@@ -21,19 +21,11 @@ import RootStackScreen from './screen/RootStackScreen';
 import { AuthContext } from './components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import SendMoneyScreen from './screen/SendMoneyScreen';
-
 const Drawer = createDrawerNavigator();
-// const Stack= createNativeStackNavigator();
 
 
 
 const App = () => {
-
-  // const [isLoading, setIsLoading] = React.useState(false);
-  // const [userToken, setUserToken] = React.useState(null); 
 
   const initialLoginState = {
     isLoading: true,
@@ -102,8 +94,6 @@ const App = () => {
       dispatch({ type: 'LOGOUT' });
     },
     signUp: () => {
-      // setUserToken('fgkj');
-      // setIsLoading(false);
     },
     toggleTheme: () => {
       setIsDarkTheme( isDarkTheme => !isDarkTheme );
