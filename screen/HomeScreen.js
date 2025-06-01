@@ -177,7 +177,7 @@
 
 
 import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet,StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -208,6 +208,7 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <StatusBar backgroundColor="#009387" barStyle="light-content" /> 
       {buttons.map((button, index) => (
         <TouchableOpacity
           key={index}

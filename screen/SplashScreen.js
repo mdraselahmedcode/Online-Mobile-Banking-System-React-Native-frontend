@@ -53,8 +53,9 @@ function SplashScreen  ({navigation}) {
         >
             <Text style={[styles.title, {
                 color: colors.text
-            }]}>Safe Mobile Banking!</Text>
-            <Text style={styles.text}>Sign in with account</Text>
+            }]}>CT Cash</Text>
+            <Text style={styles.text}>Safe Online Mobile Banking</Text>
+            {/* <Text style={styles.text}>Sign in with account</Text> */}
             <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.navigate('SignInScreen')}>
                 <LinearGradient

@@ -17,7 +17,7 @@
 
 
 import React from 'react';
-
+import { StyleSheet, Text, View,StatusBar  } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -39,6 +39,15 @@ import MobileRechargeScreen from './MobileRechargeScreen';
 import SendMoneyScreen_02 from './SendMoneyScreen_02';
 import CreateContactScreen from './CreateContactScreen';
 
+
+import ElectricitybillScreen from './ElectricitybillScreen'
+import GasbillScreen from './GasbillScreen';
+import GovernmentbillScreen from './GovernmentbillScreen';
+import InternetbillScreen from './InternetbillScreen';
+import WaterbillScreen from './WaterbillScreen';
+
+
+
 const HomeStack = createStackNavigator();
 const DetailsStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
@@ -47,13 +56,28 @@ const ExploreStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
+
 const MainTabScreen = () => (
     <Tab.Navigator
+      // initialRouteName="Home"
+      // activeColor="black"
+      // barStyle={{ backgroundColor: '#009387' }}
+      // screenOptions={{
+      //   activeTintColor: '#009387', // Set your desired active text color code
+      // }}
+
+      
       initialRouteName="Home"
-      activeColor="#fff"
+      activeColor="black" // Text color when tab is active
+      inactiveColor="#b3e0ff" // Text color when tab is inactive
+      barStyle={{ backgroundColor: '#009387' }} // Background color of the tab bar
+      screenOptions={{
+        tabBarLabelStyle: { fontSize: 12, fontWeight: 'bold' }, // Style for the tab bar labels
+      }}
       
     >
       <Tab.Screen
+      
         name="Home1"
         component={HomeStackScreen}
         options={{
@@ -68,7 +92,7 @@ const MainTabScreen = () => (
         name="Notifications"
         component={DetailsStackScreen}
         options={{
-          tabBarLabel: 'Notifications',
+          tabBarLabel: 'Notification',
           tabBarColor: '#1f65ff',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-notifications" color={color} size={26} />
@@ -90,7 +114,7 @@ const MainTabScreen = () => (
         name="Explore1"
         component={ExploreStackScreen}
         options={{
-          tabBarLabel: 'Explore',
+          tabBarLabel: 'Services',
           tabBarColor: '#d02860',
           tabBarIcon: ({ color }) => (
             <Icon name="ios-aperture" color={color} size={26} />
@@ -107,14 +131,18 @@ const HomeStackScreen = ({navigation}) => (
 <HomeStack.Navigator screenOptions={{
         headerStyle: {
         backgroundColor: '#009387',
+        
+        
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
         fontWeight: 'bold'
+        
         }
+        
     }}>
         <HomeStack.Screen name="Home" component={HomeScreen} options={{
-        title:'Transactions',
+        title:'Transaction',
         headerLeft: () => (
             <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
         )
@@ -192,6 +220,61 @@ const HomeStackScreen = ({navigation}) => (
                             )
                           
                             }} />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<HomeStack.Screen name="Waterbill" component={WaterbillScreen} options={{
+                      title:'Water Bill',
+                      headerLeft: () => (
+                          <Icon.Button name="arrow-back-outline" size={25} backgroundColor="#009387" onPress={() => navigation.goBack()}></Icon.Button>
+                      )
+                    
+                      }} /> 
+
+      <HomeStack.Screen name="Electricitybill" component={ElectricitybillScreen} options={{
+                      title:'Electricity Bill',
+                      headerLeft: () => (
+                          <Icon.Button name="arrow-back-outline" size={25} backgroundColor="#009387" onPress={() => navigation.goBack()}></Icon.Button>
+                      )
+                    
+                      }} /> 
+      <HomeStack.Screen name="Gasbill" component={GasbillScreen} options={{
+                      title:'Gas Bill',
+                      headerLeft: () => (
+                          <Icon.Button name="arrow-back-outline" size={25} backgroundColor="#009387" onPress={() => navigation.goBack()}></Icon.Button>
+                      )
+                    
+                      }} /> 
+
+      <HomeStack.Screen name="Governmentbill" component={GovernmentbillScreen} options={{
+                      title:'Government Bill',
+                      headerLeft: () => (
+                          <Icon.Button name="arrow-back-outline" size={25} backgroundColor="#009387" onPress={() => navigation.goBack()}></Icon.Button>
+                      )
+                    
+                      }} /> 
+
+      <HomeStack.Screen name="Internetbill" component={InternetbillScreen} options={{
+                            title:'Internetbill',
+                            headerLeft: () => (
+                                <Icon.Button name="arrow-back-outline" size={25} backgroundColor="#009387" onPress={() => navigation.goBack()}></Icon.Button>
+                            )
+                          
+                            }} />
                       
 
 
@@ -205,16 +288,16 @@ const HomeStackScreen = ({navigation}) => (
 const DetailsStackScreen = ({navigation}) => (
   <DetailsStack.Navigator screenOptions={{
           headerStyle: {
-          backgroundColor: '#1f65ff',
+          backgroundColor: '#009387', // top bar background color
           },
           headerTintColor: '#fff',
           headerTitleStyle: {
           fontWeight: 'bold'
           }
       }}>
-          <DetailsStack.Screen name="Details" component={DetailsScreen} options={{
+          <DetailsStack.Screen name="Notification" component={DetailsScreen} options={{
           headerLeft: () => (
-              <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+              <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
           )
           }} />
   </DetailsStack.Navigator>
@@ -225,7 +308,7 @@ const DetailsStackScreen = ({navigation}) => (
   const ProfileStackScreen = ({navigation}) => (
     <ProfileStack.Navigator screenOptions={{
             headerStyle: {
-            backgroundColor: '#1f65ff',
+            backgroundColor: '#009387',
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -234,7 +317,7 @@ const DetailsStackScreen = ({navigation}) => (
         }}>
             <ExploreStack.Screen name="Profile" component={ProfileScreen} options={{
             headerLeft: () => (
-                <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+                <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
             )
             }} />
     </ProfileStack.Navigator>
@@ -245,16 +328,16 @@ const DetailsStackScreen = ({navigation}) => (
 const ExploreStackScreen = ({navigation}) => (
 <ExploreStack.Navigator screenOptions={{
         headerStyle: {
-        backgroundColor: '#1f65ff',
+        backgroundColor: '#009387',
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
         fontWeight: 'bold'
         }
     }}>
-        <ExploreStack.Screen name="Explore" component={ExploreScreen} options={{
+        <ExploreStack.Screen name="Services" component={ExploreScreen} options={{
         headerLeft: () => (
-            <Icon.Button name="ios-menu" size={25} backgroundColor="#1f65ff" onPress={() => navigation.openDrawer()}></Icon.Button>
+            <Icon.Button name="ios-menu" size={25} backgroundColor="#009387" onPress={() => navigation.openDrawer()}></Icon.Button>
         )
         }} />
 </ExploreStack.Navigator>

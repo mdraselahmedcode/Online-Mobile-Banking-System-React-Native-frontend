@@ -1,4 +1,4 @@
-package com.anonymous.OnlineMobileBankingSystem;
+package com.onlinemobilebankingsystem;
 
 import android.app.Application;
 import android.content.res.Configuration;

@@ -1,12 +1,141 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+// import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+// import React from 'react'
 
 
+
+// function SendMoneyScreen_02 ({ route }) {
+//   console.log(route.params);
+
+//   const { contact } = route.params;
+
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.contactInfoContainer}>
+//         <Text>Contact Name: {contact.name}</Text>
+//         {contact.phoneNumbers &&
+//           contact.phoneNumbers.map((phoneNumber, index) => (
+//             <Text key={index}>Phone Number: {phoneNumber.number}</Text>
+//           ))}
+//       </View>
+//       <View style={styles.amountInputContainer}>
+//         <Text>Amount to Send:</Text>
+//         <TextInput style={styles.input} keyboardType="numeric" />
+//         {/* Display red text for invalid amount */}
+//         <Text style={styles.invalidAmountText}>Please enter a valid amount</Text>
+//       </View>
+//       <View style={styles.balanceContainer}>
+//         <Text style={styles.balanceText}>Current Balance: $500.00</Text>
+//       </View>
+//       <TouchableOpacity style={styles.sendButton}>
+//         <Text style={styles.sendButtonText}>Send Money</Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// };
+
+
+
+
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 20,
+//   },
+//   inputContainer: {
+//     marginBottom: 20,
+//   },
+//   input: {
+//     height: 40,
+//     borderColor: 'gray',
+//     borderWidth: 1,
+//     marginTop: 5,
+//     padding: 5,
+//   },
+//   recommendationsContainer: {
+//     flex: 1,
+//   },
+//   recommendationItem: {
+//     borderBottomWidth: 1,
+//     borderColor: 'gray',
+//     padding: 10,
+//   },
+//   contactInfoContainer: {
+//     marginBottom: 20,
+//   },
+//   amountInputContainer: {
+//     marginBottom: 20,
+//   },
+//   balanceContainer: {
+//     marginBottom: 20,
+//   },
+//   balanceText: {
+//     opacity: 0.7,
+//   },
+//   sendButton: {
+//     backgroundColor: 'blue',
+//     padding: 10,
+//     borderRadius: 5,
+//     alignItems: 'center',
+//   },
+//   sendButtonText: {
+//     color: 'white',
+//   },
+// });
+
+
+
+
+// export default SendMoneyScreen_02;
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 
 const SendMoneyScreen_02 = ({ route }) => {
-  console.log(route.params);
-
   const { contact } = route.params;
+
+  const [amount, setAmount] = useState('');
+  const [pin, setPin] = useState('');
+  const [isValidAmount, setIsValidAmount] = useState(true);
+  const currentBalance = 500.0; // Example current balance
+  const correctPin = '1234'; // Replace with your actual PIN logic
+
+  const handleSendMoney = () => {
+    const parsedAmount = parseFloat(amount);
+
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      setIsValidAmount(false);
+      return;
+    }
+
+    if (parsedAmount > currentBalance) {
+      Alert.alert('Insufficient Funds', 'You do not have enough funds to complete the transaction.');
+      return;
+    }
+
+    // Check PIN
+    if (pin !== correctPin) {
+      Alert.alert('Incorrect PIN', 'Please enter the correct PIN.');
+      return;
+    }
+
+    // Perform the logic for sending money here
+
+    // Reset amount, PIN, and validation state after successful transaction
+    setAmount('');
+    setPin('');
+    setIsValidAmount(true);
+
+    // Show success message or navigate to the success screen
+    Alert.alert('Success', `You have successfully sent $${parsedAmount} to ${contact.name}.`);
+  };
 
   return (
     <View style={styles.container}>
@@ -19,31 +148,41 @@ const SendMoneyScreen_02 = ({ route }) => {
       </View>
       <View style={styles.amountInputContainer}>
         <Text>Amount to Send:</Text>
-        <TextInput style={styles.input} keyboardType="numeric" />
-        {/* Display red text for invalid amount */}
-        <Text style={styles.invalidAmountText}>Please enter a valid amount</Text>
+        <TextInput
+          style={[styles.input, !isValidAmount && styles.invalidInput]}
+          keyboardType="numeric"
+          value={amount}
+          onChangeText={(text) => {
+            setAmount(text);
+            setIsValidAmount(true);
+          }}
+        />
+        {!isValidAmount && <Text style={styles.invalidAmountText}>Please enter a valid amount</Text>}
+      </View>
+      <View style={styles.pinInputContainer}>
+        <Text>PIN:</Text>
+        <TextInput
+          style={styles.input}
+          secureTextEntry
+          keyboardType="numeric"
+          value={pin}
+          onChangeText={(text) => setPin(text)}
+        />
       </View>
       <View style={styles.balanceContainer}>
-        <Text style={styles.balanceText}>Current Balance: $500.00</Text>
+        <Text style={styles.balanceText}>Current Balance: ${currentBalance.toFixed(2)}</Text>
       </View>
-      <TouchableOpacity style={styles.sendButton}>
+      <TouchableOpacity style={styles.sendButton} onPress={handleSendMoney}>
         <Text style={styles.sendButtonText}>Send Money</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-
-
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  inputContainer: {
-    marginBottom: 20,
   },
   input: {
     height: 40,
@@ -52,18 +191,20 @@ const styles = StyleSheet.create({
     marginTop: 5,
     padding: 5,
   },
-  recommendationsContainer: {
-    flex: 1,
+  invalidInput: {
+    borderColor: 'red',
   },
-  recommendationItem: {
-    borderBottomWidth: 1,
-    borderColor: 'gray',
-    padding: 10,
+  invalidAmountText: {
+    color: 'red',
+    marginTop: 5,
   },
   contactInfoContainer: {
     marginBottom: 20,
   },
   amountInputContainer: {
+    marginBottom: 20,
+  },
+  pinInputContainer: {
     marginBottom: 20,
   },
   balanceContainer: {
@@ -73,7 +214,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   sendButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#009387',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -82,8 +223,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
-
-
-
 
 export default SendMoneyScreen_02;

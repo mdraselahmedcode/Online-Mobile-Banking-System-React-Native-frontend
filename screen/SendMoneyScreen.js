@@ -22,7 +22,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 
 
-const SendMoneyScreen = ({ navigation }) => {
+function SendMoneyScreen ({ navigation }) {
   const [inputValue, setInputValue] = useState('');
   const [initialContacts, setInitialContacts] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
@@ -45,24 +45,28 @@ const SendMoneyScreen = ({ navigation }) => {
     const { data } = await Contacts.getContactsAsync({
       fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers],
     });
-
+  
     if (data) {
       setInitialContacts(data);
       setRecommendations(data);
     }
   };
+  
 
   const updateRecommendations = (value) => {
     const filteredContacts = initialContacts.filter(
       (contact) =>
+        contact.name &&
         contact.name.toLowerCase().includes(value.toLowerCase()) ||
         (contact.phoneNumbers &&
-          contact.phoneNumbers.some((phoneNumber) =>
-            phoneNumber.number.includes(value)
+          contact.phoneNumbers.some(
+            (phoneNumber) =>
+              phoneNumber.number && phoneNumber.number.includes(value)
           ))
     );
     setRecommendations(filteredContacts);
   };
+  
 
   const handleContactSelection = (selectedContact) => {
     // setInputValue(selectedContact.name); // Set the selected contact's name to the input value

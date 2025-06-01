@@ -1,62 +1,74 @@
-// import { StyleSheet, Text, View } from 'react-native'
-// import React from 'react'
-
-// function SendMoneyScreen ({navigation}) {
-//   return (
-//     <View>
-//       <Text>SendMoneyScreen</Text>
-//     </View>
-//   )
-// }
-
-// export default SendMoneyScreen
-
-// const styles = StyleSheet.create({})
-
-
-
-
-
-
-
 import React from 'react';
-import { Text, View } from 'react-native';
-import MaskedView from '@react-native-masked-view/masked-view';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const BillPaymentScreen = ({navigation}) => {
-  return (
+const BillPaymentScreen = ({ navigation }) => {
+  const billOptions = [
+    { name: 'Water Bill', icon: 'local-drink' , screen:'Waterbill' },
+    { name: 'Gas Bill', icon: 'whatshot' , screen:'Gasbill'},
+    { name: 'Electricity Bill', icon: 'flash-on', screen:'Electricitybill' },
+    { name: 'Internet Bill', icon: 'wifi' , screen:'Internetbill'},
+    { name: 'Government Fee', icon: 'account-balance' , screen:'Governmentbill'},
+    // Add more bill options as needed
+  ];
+
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
     
-    <MaskedView
-      style={{ flex: 1, flexDirection: 'row', height: '100%' }}
-      maskElement={
-        <View
-          style={{
-            // Transparent background because mask is based off alpha channel.
-            backgroundColor: 'transparent',
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 60,
-              color: 'black',
-              fontWeight: 'bold',
-            }}
+
+  };
+
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Bill Payment Options</Text>
+      <View style={styles.billOptionsContainer}>
+        {billOptions.map((option, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.billOptionButton}
+            onPress={() => navigateToScreen(`${option.screen}`)}
+           
           >
-            Bill Payment
-          </Text>
-        </View>
-      }
-    >
-      {/* Shows behind the mask, you can put anything here, such as an image */}
-      <View style={{ flex: 1, height: '100%', backgroundColor: '#324376' }} />
-      <View style={{ flex: 1, height: '100%', backgroundColor: '#F5DD90' }} />
-      <View style={{ flex: 1, height: '100%', backgroundColor: '#F76C5E' }} />
-      <View style={{ flex: 1, height: '100%', backgroundColor: '#e1e1e1' }} />
-    </MaskedView>
+            <Icon name={option.icon} size={30} color="#009688" />
+            <Text style={styles.billOptionText}>{option.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  billOptionsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  billOptionButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    padding: 10,
+    margin: 5,
+    borderRadius: 10,
+    elevation: 5,
+    width: '30%', // Adjust the width as needed for the number of columns
+  },
+  billOptionText: {
+    fontSize: 14,
+    marginTop: 5,
+    textAlign: 'center',
+  },
+});
 
 export default BillPaymentScreen;
